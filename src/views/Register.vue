@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import request from '@/utils/request'
 export default {
   name: 'LoginPage',
   data () {
@@ -45,8 +46,9 @@ export default {
     }
   },
   methods: {
-    onSubmit (values) {
-      console.log('submit', values)
+    async onSubmit (values) {
+      const res = await request.post('/user/register', values)
+      console.log(res)
     }
   }
 }
