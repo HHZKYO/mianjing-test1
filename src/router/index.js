@@ -8,6 +8,7 @@ import Register from '@/views/Register.vue'
 import User from '@/views/User.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { getToken } from '@/utils/storage'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,22 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+const whiteList = ['/login', '/register']
+
+// 路由全局前置守卫
+router.beforeEach((to, from, next) => {
+  const token = getToken()
+  if (token) {
+    next()
+  } else {
+    if (whiteList.includes(to.path)) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
 })
 
 export default router
