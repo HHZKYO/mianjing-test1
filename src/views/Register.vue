@@ -53,13 +53,9 @@ export default {
         message: '请求中...',
         forbidClick: true
       })
-      try {
-        await register(values)
-        this.$toast.success('注册成功')
-        this.$router.push('/login')
-      } catch (e) {
-        this.$toast.fail('注册失败')
-      }
+      await register(values)
+      this.$toast.success('注册成功')
+      this.$router.push('/login')
     }
   }
 }
