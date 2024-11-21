@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
   name: 'LoginPage',
   data () {
@@ -45,8 +46,11 @@ export default {
     }
   },
   methods: {
-    onSubmit (values) {
-      console.log('submit', values)
+    async onSubmit (values) {
+      const { data } = await login(values)
+      this.$toast('登录成功')
+      localStorage.setItem('vant-mobile-exp-token', data.data.token)
+      this.$router.push('/')
     }
   }
 }
