@@ -19,12 +19,20 @@
 </template>
 
 <script>
+import { getArticles } from '@/api/article'
 export default {
   name: 'article-page',
   data () {
     return {
 
     }
+  },
+  async created () {
+    const res = await getArticles({
+      current: 1,
+      sorter: 'weight_desc'
+    })
+    console.log(res)
   },
   methods: {
 
