@@ -37,6 +37,7 @@
 
 <script>
 import { login } from '@/api/user'
+import { setToken } from '@/utils/storage'
 export default {
   name: 'LoginPage',
   data () {
@@ -49,7 +50,7 @@ export default {
     async onSubmit (values) {
       const { data } = await login(values)
       this.$toast('登录成功')
-      localStorage.setItem('vant-mobile-exp-token', data.data.token)
+      setToken(data.data.token)
       this.$router.push('/')
     }
   }
