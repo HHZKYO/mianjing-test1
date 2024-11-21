@@ -47,8 +47,19 @@ export default {
   },
   methods: {
     async onSubmit (values) {
-      const res = await register(values)
-      console.log(res)
+      // const res = await register(values)
+      // console.log(res)
+      this.$toast.loading({
+        message: '请求中...',
+        forbidClick: true
+      })
+      try {
+        await register(values)
+        this.$toast.success('注册成功')
+        this.$router.push('/login')
+      } catch (e) {
+        this.$toast.fail('注册失败')
+      }
     }
   }
 }
