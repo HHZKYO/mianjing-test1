@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Toast } from 'vant'
-import { getToken } from './storage'
+import { getToken, delToken } from './storage'
+import router from '@/router'
 
 const instance = axios.create({
   baseURL: 'http://interview-api-t.itheima.net/h5/',
@@ -24,7 +25,12 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
   // 有错误响应，后台正常返回了错误信息
   if (error.response) {
-    Toast(error.response.data.message)
+    if (error.response.status === 401) {
+      delToken()
+      router.push('/login')
+    } else {
+      Toast(error.response.data.message)
+    }
   }
   return Promise.reject(error)
 })
