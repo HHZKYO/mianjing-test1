@@ -2,11 +2,13 @@
   <div class="article-page">
     <nav class="my-nav van-hairline--bottom">
       <a
+        :class="{ active: sorter === 'weight_desc' }"
         @click="changeSorter('weight_desc')"
         href="javascript:;"
         >推荐</a
       >
       <a
+        :class="{ active: sorter === null }"
         @click="changeSorter(null)"
         href="javascript:;"
         >最新</a
