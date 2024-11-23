@@ -12,7 +12,13 @@
       <div class="logo"><img src="@/assets/logo.png" alt=""></div>
     </nav>
 
-    <ArticleItem v-for="item in list" :key="item.id" :item="item"></ArticleItem>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      @load="onLoad"
+    >
+      <ArticleItem v-for="item in list" :key="item.id" :item="item"></ArticleItem>
+    </van-list>
   </div>
 </template>
 
@@ -24,19 +30,24 @@ export default {
     return {
       current: 1,
       sorter: 'weight_desc',
-      list: []
+      list: [],
+      loading: false,
+      finished: false
     }
   },
   async created () {
-    const res = await getArticles({
-      current: this.current,
-      sorter: this.sorter
-    })
-    this.list = res.data.rows
-    console.log(res.data.rows)
+
   },
   methods: {
-
+    async onLoad () {
+      const res = await getArticles({
+        current: this.current,
+        sorter: this.sorter
+      })
+      this.list.push(...res.data.rows)
+      this.loading = false
+      this.current++
+    }
   }
 }
 </script>
