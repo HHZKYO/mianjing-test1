@@ -21,7 +21,7 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
-  return response
+  return response.data
 }, function (error) {
   // 有错误响应，后台正常返回了错误信息
   if (error.response) {

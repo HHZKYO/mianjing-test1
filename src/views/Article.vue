@@ -32,8 +32,8 @@ export default {
       current: this.current,
       sorter: this.sorter
     })
-    this.list = res.data.data.rows
-    console.log(res.data.data.rows)
+    this.list = res.data.rows
+    console.log(res.data.rows)
   },
   methods: {
 
