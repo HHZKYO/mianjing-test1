@@ -15,6 +15,7 @@
     <van-list
       v-model="loading"
       :finished="finished"
+      finished-text="没有更多数据了"
       @load="onLoad"
     >
       <ArticleItem v-for="item in list" :key="item.id" :item="item"></ArticleItem>
@@ -47,6 +48,9 @@ export default {
       this.list.push(...res.data.rows)
       this.loading = false
       this.current++
+      if (this.current > res.data.pageTotal) {
+        this.finished = true
+      }
     }
   }
 }
