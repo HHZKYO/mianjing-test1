@@ -2,10 +2,12 @@
   <div class="article-page">
     <nav class="my-nav van-hairline--bottom">
       <a
+        @click="changeSorter('weight_desc')"
         href="javascript:;"
         >推荐</a
       >
       <a
+        @click="changeSorter(null)"
         href="javascript:;"
         >最新</a
       >
@@ -51,6 +53,14 @@ export default {
       if (this.current > res.data.pageTotal) {
         this.finished = true
       }
+    },
+    changeSorter (value) {
+      this.sorter = value
+      this.current = 1
+      this.list = []
+      this.finished = false
+      this.loading = true
+      this.onLoad()
     }
   }
 }
