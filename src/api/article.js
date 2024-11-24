@@ -10,3 +10,11 @@ export const getArticles = (obj) => {
     }
   })
 }
+
+export const ArticleDetail = (obj) => {
+  return request.get('/interview/show', {
+    params: {
+      id: obj.id
+    }
+  })
+}
