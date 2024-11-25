@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+// 面经列表接口
 export const getArticles = (obj) => {
   return request.get('/interview/query', {
     // 配置get请求参数
@@ -11,10 +12,25 @@ export const getArticles = (obj) => {
   })
 }
 
-export const ArticleDetail = (obj) => {
-  return request.get('/interview/show', {
+// 面经详情接口
+export const getArticleDetail = (id) => {
+  return request.get('interview/show', {
     params: {
-      id: obj.id
+      id
     }
+  })
+}
+
+// 点赞&收藏接口
+export const updateLike = (id) => {
+  return request.post('interview/opt', {
+    id,
+    optType: 1 // 喜欢
+  })
+}
+export const updateCollect = (id) => {
+  return request.post('interview/opt', {
+    id,
+    optType: 2 // 收藏
   })
 }

@@ -4,61 +4,61 @@
       left-text="返回"
       @click-left="$router.back()"
       fixed
-      title="面经详情"
+      title="面经详细"
     />
     <header class="header">
-      <h1>{{article.stem}}</h1>
+      <h1>{{ article.stem }}</h1>
       <p>
-        {{article.createdAt}} | {{article.views}} 浏览量 | {{article.likeCount}} 点赞数
+        {{ article.createdAt }} | {{ article.views }} 浏览量 |
+        {{ article.likeCount }} 点赞数
       </p>
       <p>
         <img :src="article.avatar" alt="" />
-        <span>作者：{{ article.creator }}</span>
+        <span>{{ article.creator }}</span>
       </p>
     </header>
-    <main class="body">
-      <p v-html="article.content"></p>
-    </main>
+    <main class="body" v-html="article.content"></main>
     <div class="opt">
-      <van-icon
-        :class="{ active: isActive1}"
-        @click="toggleActive(1)"
-        name="like-o"
-      />
-      <van-icon
-        name="star-o"
-        :class="{ active: isActive2}"
-        @click="toggleActive(2)"
-      />
+      <van-icon @click="toggleLike" :class="{active:article.likeFlag}" name="like-o"/>
+      <van-icon @click="toggleCollect" :class="{active:article.collectFlag}" name="star-o"/>
     </div>
   </div>
 </template>
 
 <script>
-import { ArticleDetail } from '@/api/article'
+import { getArticleDetail, updateCollect, updateLike } from '@/api/article'
+
 export default {
   name: 'detail-page',
   data () {
     return {
-      article: {},
-      isActive1: false,
-      isActive2: false
+      article: {}
     }
   },
   async created () {
-    try {
-      const res = await ArticleDetail({ id: this.$route.params.id })
-      this.article = res.data
-    } catch (error) {
-      console.log(error)
-    }
+    this.article = {}
+    const { data } = await getArticleDetail(this.$route.params.id)
+    this.article = data
   },
   methods: {
-    toggleActive (iconIndex) {
-      if (iconIndex === 1) {
-        this.isActive1 = !this.isActive1
-      } else if (iconIndex === 2) {
-        this.isActive2 = !this.isActive2
+    async toggleLike () {
+      await updateLike(this.article.id)
+      this.article.likeFlag = !this.article.likeFlag
+      if (this.article.likeFlag) {
+        this.article.likeCount++
+        this.$toast.success('点赞成功')
+      } else {
+        this.article.likeCount--
+        this.$toast.success('取消点赞')
+      }
+    },
+    async toggleCollect () {
+      await updateCollect(this.article.id)
+      this.article.collectFlag = !this.article.collectFlag
+      if (this.article.collectFlag) {
+        this.$toast.success('收藏成功')
+      } else {
+        this.$toast.success('取消收藏')
       }
     }
   }
