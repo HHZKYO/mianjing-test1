@@ -34,3 +34,14 @@ export const updateCollect = (id) => {
     optType: 2 // 收藏
   })
 }
+
+// 获取我的收藏
+export const getArticlesCollect = (obj) => {
+  return request.get('/interview/opt/list', {
+    params: {
+      page: obj.page, // 当前页
+      pageSize: 5, // 可选
+      optType: 2 // 表示收藏
+    }
+  })
+}
