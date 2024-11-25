@@ -20,8 +20,16 @@
       <p v-html="article.content"></p>
     </main>
     <div class="opt">
-      <van-icon class="active" name="like-o"/>
-      <van-icon name="star-o"/>
+      <van-icon
+        :class="{ active: isActive1}"
+        @click="toggleActive(1)"
+        name="like-o"
+      />
+      <van-icon
+        name="star-o"
+        :class="{ active: isActive2}"
+        @click="toggleActive(2)"
+      />
     </div>
   </div>
 </template>
@@ -32,7 +40,9 @@ export default {
   name: 'detail-page',
   data () {
     return {
-      article: {}
+      article: {},
+      isActive1: false,
+      isActive2: false
     }
   },
   async created () {
@@ -44,6 +54,13 @@ export default {
     }
   },
   methods: {
+    toggleActive (iconIndex) {
+      if (iconIndex === 1) {
+        this.isActive1 = !this.isActive1
+      } else if (iconIndex === 2) {
+        this.isActive2 = !this.isActive2
+      }
+    }
   }
 }
 </script>
