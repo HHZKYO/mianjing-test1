@@ -45,3 +45,14 @@ export const getArticlesCollect = (obj) => {
     }
   })
 }
+
+// 获取我的喜欢
+export const getArticlesLike = (obj) => {
+  return request.get('/interview/opt/list', {
+    params: {
+      page: obj.page, // 当前页
+      pageSize: 5, // 可选
+      optType: 1 // 表示喜欢
+    }
+  })
+}
