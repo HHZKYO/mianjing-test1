@@ -1,14 +1,16 @@
-import Article from '@/views/Article.vue'
-import Collect from '@/views/Collect.vue'
-import Detail from '@/views/Detail.vue'
-import Layout from '@/views/Layout.vue'
-import Like from '@/views/Like.vue'
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
-import User from '@/views/User.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { getToken } from '@/utils/storage'
+// 一级路由页面导入
+const Detail = () => import('@/views/Detail.vue')
+const Layout = () => import('@/views/Layout.vue')
+const Login = () => import('@/views/Login.vue')
+const Register = () => import('@/views/Register.vue')
+// 二级路由页面导入
+const User = () => import('@/views/User.vue')
+const Article = () => import('@/views/Article.vue')
+const Collect = () => import('@/views/Collect.vue')
+const Like = () => import('@/views/Like.vue')
 
 Vue.use(VueRouter)
 
